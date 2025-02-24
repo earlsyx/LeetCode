@@ -1,8 +1,10 @@
 ﻿using System.Numerics;
 using System.Reflection;
+using System.Security.Cryptography.X509Certificates;
 
 public class Solution {
 
+    // Array and Hashing
     public int[] TwoSum(int[] nums, int target)
     {
         Dictionary<int, int> prevMap = new Dictionary<int, int>();
@@ -59,8 +61,59 @@ public class Solution {
         return true;
     }
 
+
+    //Two Pointers
+
+    public bool IsPalindrome(string s)
+    {
+
+        Checker checker = new Checker();
+        // sample. "Was it a car or a cat I Saw?"
+        int l = 0;
+        int r = s.Length - 1;
+
+        while (l < r)
+        {
+            while (l < r && !checker.IsAlphaNum(s[l]))
+            {
+                l++;
+            }
+
+            while (r > l && !checker.IsAlphaNum(s[r]))
+            {
+                r--;
+            }
+
+            // compar
+            if (char.ToLower(s[l]) != char.ToLower(s[r]))
+            {
+                return false;
+            }
+            
+            l++; r--;
+        }
+        return true;
+        
+    }
+
+ 
+
+
+
+
 }
 
+
+public class Checker
+{
+
+    public bool IsAlphaNum(char c)
+    {
+        return (c >= 'A' && c <= 'Z' ||
+                c >= 'a' && c <= 'z' ||
+                c >= '0' && c <= '9');
+    }
+}
 class Program
 {
     static void Main()
@@ -180,6 +233,26 @@ class Program
 
 
 
+        }
+
+        else if(choice == 4)
+        {
+            Console.WriteLine("Write the text to check if it's a palindrome");
+            string sentence = Console.ReadLine();
+
+            Solution solution = new Solution();
+            bool isPalindrome = solution.IsPalindrome(sentence);
+
+            if (isPalindrome)
+            {
+                Console.WriteLine("The text is a Palindrome");
+            }
+            else
+            {
+                Console.WriteLine("Not a Palindrome");
+
+
+            }
         }
 
 
