@@ -33,6 +33,32 @@ public class Solution {
         return false;
     }
 
+    public bool IsAnagram(string s, string t)
+    {
+        if (s.Length != t.Length)
+        {
+            return false;
+        }
+
+        int[] counts = new int[26];
+
+        for (int i = 0; i < s.Length; i++)
+        {
+            counts[s[i] - 'a']++;
+            counts[t[i] - 'a']--;
+        }
+
+        foreach (int val in counts)
+        {
+            if(val != 0)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
 }
 
 class Program
@@ -131,6 +157,29 @@ class Program
                 Console.WriteLine("No Duplicate");
             }
             
+        }
+
+        else if (choice == 3)
+        {
+            Console.WriteLine("Input the first word s");
+            string firstWord = Console.ReadLine();
+            Console.WriteLine("Input the second word t");
+            string? secondWord = Console.ReadLine();
+
+            Solution solution = new Solution();
+            bool isAnagram = solution.IsAnagram(firstWord, secondWord);
+
+            if(isAnagram)
+            {
+                Console.WriteLine("The two words are Anagram of each other");
+            }
+            else
+            {
+                Console.WriteLine("Not Anagram");
+            }
+
+
+
         }
 
 
