@@ -3,6 +3,13 @@ using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 
 public class Solution {
+    /*
+     Current Implementation 
+        Array and Hashing
+         - Two Sum , Is Anagram, Has Duplicate
+        Two Pointers
+         - Is Palindrome
+     */
 
     // Array and Hashing
     public int[] TwoSum(int[] nums, int target)
@@ -96,6 +103,37 @@ public class Solution {
         
     }
 
+
+    public bool IsValid(string s)
+    {
+        Stack<char> stack = new Stack<char>();
+        Dictionary<char, char> closeToOpen = new Dictionary<char, char>
+        {
+            {')' , '('},
+            {']' , '['},
+            {'}' , '{'}
+        };
+
+        foreach (char c in s)
+        {
+            if (closeToOpen.ContainsKey(c))
+            {
+                if (stack.Count > 0 && stack.Peek() == closeToOpen[c])
+                {
+                    stack.Pop();
+                } else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                stack.Push(c);
+            }
+        }
+        return stack.Count == 0;
+
+    }
  
 
 
@@ -255,6 +293,24 @@ class Program
             }
         }
 
+        else if(choice == 5)
+        {
+            Console.WriteLine("Input Valid Parenthesis : i.e Valid is if it close" +
+                "and open and the same time. (()) valid, ([]( not valid");
+
+            var input = Console.ReadLine();
+            Solution isValid = new Solution();
+            var result = isValid.IsValid(input);
+            if(result)
+            {
+                Console.WriteLine("Is Valid Parenthesis");
+            }
+            else if(!result)
+            {
+                Console.WriteLine("Not Valid Parenthesis");
+            }
+
+        }
 
         Console.WriteLine("Please Enter 1 if you want to retry, if not enter 0");
         var retry = Console.ReadLine();
