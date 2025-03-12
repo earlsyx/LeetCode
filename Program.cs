@@ -4,11 +4,15 @@ using System.Security.Cryptography.X509Certificates;
 
 public class Solution {
     /*
-     Current Implementation 
+     Current Implementation d
         Array and Hashing
          - Two Sum , Is Anagram, Has Duplicate
         Two Pointers
          - Is Palindrome
+        Stack
+         - Is Valid Parenthesis
+        Binary
+        - Binary Search
      */
 
     // Array and Hashing
@@ -103,7 +107,7 @@ public class Solution {
         
     }
 
-
+    //Valid Parenthesis, Stack
     public bool IsValid(string s)
     {
         Stack<char> stack = new Stack<char>();
@@ -134,7 +138,33 @@ public class Solution {
         return stack.Count == 0;
 
     }
- 
+     
+    //Binary Search 
+    public int Search(int[] nums, int target)
+    {
+        int l = 0, r = nums.Length - 1;
+
+        while (l <= r)
+        {
+            int midPoint = l + ((r - l) / 2);
+
+            if (nums[midPoint] > target)
+            {
+                r = midPoint - 1;
+            }
+            else if (nums[midPoint] < target)
+            {
+                l = midPoint + 1;
+            }
+            else
+            {
+                return midPoint;
+            }
+        }
+        return -1;
+
+
+    }
 
 
 
@@ -239,7 +269,7 @@ class Program
             // make it so that this input is read and parse as an int, split then a list of object.
             // 
             int[] nums = Array.ConvertAll(input.Split(","), int.Parse);
-           if (solutionS.hasDuplicate(nums))
+            if (solutionS.hasDuplicate(nums))
             {
                 Console.WriteLine("Has Duplicate");
             }
@@ -247,7 +277,7 @@ class Program
             {
                 Console.WriteLine("No Duplicate");
             }
-            
+
         }
 
         else if (choice == 3)
@@ -260,7 +290,7 @@ class Program
             Solution solution = new Solution();
             bool isAnagram = solution.IsAnagram(firstWord, secondWord);
 
-            if(isAnagram)
+            if (isAnagram)
             {
                 Console.WriteLine("The two words are Anagram of each other");
             }
@@ -273,7 +303,7 @@ class Program
 
         }
 
-        else if(choice == 4)
+        else if (choice == 4)
         {
             Console.WriteLine("Write the text to check if it's a palindrome");
             string sentence = Console.ReadLine();
@@ -293,7 +323,7 @@ class Program
             }
         }
 
-        else if(choice == 5)
+        else if (choice == 5)
         {
             Console.WriteLine("Input Valid Parenthesis : i.e Valid is if it close" +
                 "and open and the same time. (()) valid, ([]( not valid");
@@ -301,15 +331,56 @@ class Program
             var input = Console.ReadLine();
             Solution isValid = new Solution();
             var result = isValid.IsValid(input);
-            if(result)
+            if (result)
             {
                 Console.WriteLine("Is Valid Parenthesis");
             }
-            else if(!result)
+            else if (!result)
             {
                 Console.WriteLine("Not Valid Parenthesis");
             }
 
+        }
+
+        else if (choice == 6)
+        {
+            Console.WriteLine("Please Enter the distinct array of numbers you want to search to separated by commas i.e 2,5,6,7,8");
+            var inputString = Console.ReadLine();
+
+            try
+            {
+                int[] inputArray = Array.ConvertAll(inputString.Split(","), int.Parse);
+
+                Console.WriteLine("Enter your target, you want to search in the arrays");
+                var targetNumber = Console.ReadLine();
+                var targetParse = int.Parse(targetNumber);
+
+                Solution search = new Solution();
+                int result = search.Search(inputArray, targetParse);
+
+                if (result == -1)
+                {
+                    Console.WriteLine("The target number doesn't exist within the array");
+                }
+                else
+                {
+                    Console.WriteLine($"The target exist in index {result}");
+                }
+
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("Invalid input! Please enter only numbers separated by commas.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred: {ex.Message}");
+            }
+
+
+
+         
+            
         }
 
         Console.WriteLine("Please Enter 1 if you want to retry, if not enter 0");
