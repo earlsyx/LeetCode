@@ -13,6 +13,8 @@ public class Solution {
          - Is Valid Parenthesis
         Binary
         - Binary Search
+        Sliding Windows
+        - Best Time to Buy and Sell Stock
      */
 
     // Array and Hashing
@@ -32,7 +34,7 @@ public class Solution {
         }
         return Array.Empty<int>();
     }
-    
+
     public bool hasDuplicate(int[] nums) {
         HashSet<int> set = new HashSet<int>();
 
@@ -42,7 +44,7 @@ public class Solution {
                 return true;
             }
             set.Add(num);
-               }
+        }
         return false;
     }
 
@@ -63,7 +65,7 @@ public class Solution {
 
         foreach (int val in counts)
         {
-            if(val != 0)
+            if (val != 0)
             {
                 return false;
             }
@@ -100,11 +102,11 @@ public class Solution {
             {
                 return false;
             }
-            
+
             l++; r--;
         }
         return true;
-        
+
     }
 
     //Valid Parenthesis, Stack
@@ -138,7 +140,7 @@ public class Solution {
         return stack.Count == 0;
 
     }
-     
+
     //Binary Search 
     public int Search(int[] nums, int target)
     {
@@ -164,6 +166,29 @@ public class Solution {
         return -1;
 
 
+    }
+
+    //   Sliding Windows
+    // Best Time to Buy and Sell Stock
+    public int MaxProfit(int[] prices) {
+        int l = 0, r = 1;
+        int maxP = 0;
+
+        while (r < prices.Length)
+        {
+            if (prices[l] < prices[r])
+            {
+                int profit = prices[r] - prices[l];
+                maxP = Math.Max(profit, maxP);
+            }
+            else 
+            {
+                l = r;
+            }
+            r++;
+        }
+
+        return maxP;
     }
 
 
@@ -381,6 +406,20 @@ class Program
 
          
             
+        }
+
+        else if (choice == 7)
+        {
+            Console.WriteLine("Enter an array of numbers (price of token each day) seperated by commas i.e 200, 400,600,300");
+            var stringPrices = Console.ReadLine();
+            int[] arrayPrices = Array.ConvertAll(stringPrices.Split(","), int.Parse);
+
+            //Console.WriteLine("Choose the day which you want to buy the coin, I,e the first number in the array corresponds to the day (1) if first day and so on");
+            //var day = Console.ReadLine();
+            Solution maxP = new Solution();
+            var maxProfit = maxP.MaxProfit(arrayPrices);
+
+            Console.WriteLine($"The max Profit you can get given the following days would be  {maxProfit}");
         }
 
         Console.WriteLine("Please Enter 1 if you want to retry, if not enter 0");
