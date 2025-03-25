@@ -1,0 +1,2 @@
+-- Instead of doing the problems in the ide in the web, I created a reposity in which I do it in Visual Studio lols so I can debug it xd. 
+-- Will probably create a much better web site, maybe to make this as a Review site of some kind.
