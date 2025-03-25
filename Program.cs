@@ -15,6 +15,8 @@ public class Solution {
         - Binary Search
         Sliding Windows
         - Best Time to Buy and Sell Stock
+        Linked List
+        - Reverse Linked List
      */
 
     // Array and Hashing
@@ -191,8 +193,49 @@ public class Solution {
         return maxP;
     }
 
+    //Link List
+    public ListNode ReverseList(ListNode head)
+    {
+        ListNode prev = null;
+        ListNode curr = head;
 
+        while (curr != null)
+        {
+            ListNode temp = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = temp;
+        }
+        return prev;
+    }
 
+    public static ListNode CreateLinkedListFromArray(int[] arr)
+    {
+        if (arr == null || arr.Length == 0)
+            return null;
+
+        ListNode head = new ListNode(arr[0]);
+        ListNode current = head;
+        for (int i = 1; i < arr.Length; i++)
+        {
+            current.next = new ListNode(arr[i]);
+            current = current.next;
+        }
+        return head;
+    }
+
+    public static void PrintList(ListNode head)
+    {
+        ListNode current = head;
+        while (current != null)
+        {
+            Console.Write(current.val);
+            if (current.next != null)
+                Console.Write(" -> ");
+            current = current.next;
+        }
+        Console.WriteLine();
+    }
 
 }
 
@@ -207,6 +250,19 @@ public class Checker
                 c >= '0' && c <= '9');
     }
 }
+
+public class ListNode
+{
+    public int val;
+    public ListNode next;
+    public ListNode(int val = 0, ListNode next=null)
+    {
+        this.val = val;
+        this.next = next;
+    }
+}
+
+
 class Program
 {
     static void Main()
@@ -370,11 +426,11 @@ class Program
         else if (choice == 6)
         {
             Console.WriteLine("Please Enter the distinct array of numbers you want to search to separated by commas i.e 2,5,6,7,8");
-            var inputString = Console.ReadLine();
+            var inputStrings = Console.ReadLine();
 
             try
             {
-                int[] inputArray = Array.ConvertAll(inputString.Split(","), int.Parse);
+                int[] inputArray = Array.ConvertAll(inputStrings.Split(","), int.Parse);
 
                 Console.WriteLine("Enter your target, you want to search in the arrays");
                 var targetNumber = Console.ReadLine();
@@ -421,6 +477,26 @@ class Program
 
             Console.WriteLine($"The max Profit you can get given the following days would be  {maxProfit}");
         }
+
+        #region
+
+        if (choice == 8)
+        {
+            Console.WriteLine("Write a list of numbers separated by commas (e.g., 1,2,3):");
+            var inputString = Console.ReadLine();
+
+            int[] numbers = Array.ConvertAll(inputString.Split(','), int.Parse);
+            ListNode listHead = Solution.CreateLinkedListFromArray(numbers);
+
+            // Reverse the linked list
+            Solution solution = new Solution();
+            ListNode reversedHead = solution.ReverseList(listHead);
+
+            Console.WriteLine("Reversed list:");
+            Solution.PrintList(reversedHead);
+            #endregion
+        }
+
 
         Console.WriteLine("Please Enter 1 if you want to retry, if not enter 0");
         var retry = Console.ReadLine();
